@@ -2,16 +2,14 @@ import { useState } from "react"
 import './AddItem.css'
 
 export const AddItem = ({onPush}) => {
-    const [value, setValue] = useState({
-        name: '',
-    })
+    const [value, setValue] = useState('')
 
     const handleSubmit = e => {
         e.preventDefault()
 
-        if(value.name.trim()) {
+        if(value.trim()) {
             onPush(value)
-            setValue({name: ''})
+            setValue('')
         }
     }
 
@@ -19,7 +17,7 @@ export const AddItem = ({onPush}) => {
         <>
             <form>
                 <div className="block">
-                    <input placeholder="Input action" type="text" value={value.name} onChange={(e) => setValue({...value, name: e.target.value})}/>
+                    <input placeholder="Input action" type="text" value={value} onChange={(e) => setValue(e.target.value)}/>
                     <button onClick={handleSubmit}>Add</button>
                 </div>
             </form>

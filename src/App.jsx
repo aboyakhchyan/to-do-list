@@ -5,30 +5,32 @@ import { List } from "./components/LIst";
 
 function App() {
 
-  const [users, setUsers] = useState([])
+  const [todos, setTodos] = useState([])
+
+  const [filteredChange, setFilteredChange] = useState('All')
   
-  const pushItem = obj => {
-    setUsers([...users, {...obj, id: (new Date).getTime(), completed: false}])
-    console.log(users)
+  const pushItem = name => {
+    setTodos([...todos, {name, id: Date.now(), completed: false}])
   }
 
   const handleRemove = id => {
-    let temp = [...users]
+    let temp = [...todos]
 
-    temp = temp.filter(item => item.id !== id || !item.completed)
+    temp = temp.filter(todo => todo.id !== id || !todo.completed)
 
-    setUsers(temp)
+    setTodos(temp)
   }
 
   const handleCmpleted = id => {
-    setUsers(users.map(user=> user.id === id ? {...user, completed: !user.completed} : user))
+    setTodos(todos.map(todo=> todo.id === id ? {...todo, completed: !todo.completed} : todo))
   }
 
   return (
     <>
       <h1 className="title">ToDo List</h1>
-      <AddItem users={users} onPush={pushItem}/>
-      <List users={users} onRemove={handleRemove} onCompleted={handleCmpleted}/>
+      <AddItem todos={todos} onPush={pushItem}/>
+      <List todos={todos} onRemove={handleRemove} 
+      onCompleted={handleCmpleted} filteredChange={filteredChange} onSet={setFilteredChange}/>
     </>
   )
 }

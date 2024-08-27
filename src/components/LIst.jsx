@@ -1,19 +1,29 @@
 import { ToDoItem } from "./ToDoItem"
 import './List.css'
+import { FilteredToDo } from "./FilteredToDo"
 
 
-export const List = ({users, onRemove, onCompleted}) => {
+export const List = ({todos, onRemove, onCompleted, filteredChange, onSet}) => {
 
     const changeComplete = () => {
-        return users.reduce((aggr, user) => aggr + user.completed, 0)
+        return todos.reduce((aggr, todo) => aggr + todo.completed, 0)
+    }
+
+    let newTodos = todos
+
+    if(filteredChange == 'Completed') {
+        newTodos = todos.filter(todo => todo.completed)
+    }else if(filteredChange == 'Active') {
+        newTodos = todos.filter(todo => !todo.completed)
     }
 
     return (
         <div className="list">
             {
-                users.map(item => <ToDoItem key={item.id} {...item} onRemove={onRemove} onCompleted={onCompleted}/>)
+                newTodos.map(todo => <ToDoItem key={todo.id} {...todo} onRemove={onRemove} onCompleted={onCompleted}/>)
             }
-            <p>{users.length ? `${changeComplete()}/${users.length} completed` : null}</p>
+            {todos.length ? <FilteredToDo filteredChange={filteredChange} onSet={onSet}/> : null}
+            <p>{todos.length ? `${changeComplete()}/${todos.length} completed` : null}</p>
         </div>
     )
 }

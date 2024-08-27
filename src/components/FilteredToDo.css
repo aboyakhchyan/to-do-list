@@ -1,0 +1,19 @@
+.filt-btn {
+    margin-top: 5px;
+}
+
+.filt-btn button {
+    width: 117px;
+} 
+
+.button-active {
+    background-color: #d12aeb;
+} 
+
+.index-0 {
+    border-radius: 1rem 0 0 1rem;
+}
+
+.index-2 {
+    border-radius: 0 1rem 1rem 0;
+}
