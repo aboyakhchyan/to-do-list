@@ -1,5 +1,14 @@
 import './FilteredToDo.css'
 
+/**
+ * 
+ * @component
+ * @param {Object} props 
+ * @param {string} props.filteredChange - state to store list values
+ * @param {function} props.onSet - callback function to change state values
+ * @returns {JSX.Element}
+ */
+
 export const FilteredToDo = ({filteredChange, onSet}) => {
 
     const list = ['All', 'Completed', 'Active']

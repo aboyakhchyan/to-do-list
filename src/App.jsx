@@ -8,10 +8,20 @@ function App() {
   const [todos, setTodos] = useState([])
 
   const [filteredChange, setFilteredChange] = useState('All')
+
+  /**
+   * 
+   * @param {string} name - name of todo
+   */
   
   const pushItem = name => {
     setTodos([...todos, {name, id: Date.now(), completed: false}])
   }
+
+  /**
+   * 
+   * @param {number} id - identifier of todo 
+   */
 
   const handleRemove = id => {
     let temp = [...todos]
