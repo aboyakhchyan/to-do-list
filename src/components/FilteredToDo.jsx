@@ -1,15 +1,11 @@
+import { useContext } from 'react'
 import './FilteredToDo.css'
+import { DataContext } from '../data'
 
-/**
- * 
- * @component
- * @param {Object} props 
- * @param {string} props.filteredChange - state to store list values
- * @param {function} props.onSet - callback function to change state values
- * @returns {JSX.Element}
- */
 
-export const FilteredToDo = ({filteredChange, onSet}) => {
+export const FilteredToDo = () => {
+
+    const {filteredChange, onFilteredChange} = useContext(DataContext)
 
     const list = ['All', 'Completed', 'Active']
 
@@ -19,8 +15,7 @@ export const FilteredToDo = ({filteredChange, onSet}) => {
                 list.map((criteria, index) => <button 
                     key={index}
                     className={(filteredChange == criteria ? 'button-active ' : '') + ('index-' + index)}
-                    onClick={() => onSet(criteria)}
-
+                    onClick={() => onFilteredChange(criteria)}
                 >
                     {criteria}
                 </button>)

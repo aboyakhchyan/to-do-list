@@ -1,15 +1,12 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import './AddItem.css'
+import { DataContext } from "../data"
 
-/**
- * 
- * @component
- * @param {Object} props - component to add a todo
- * @param {function} props.onPush - function to add a todo
- * @returns {JSX.Element}
- */
 
-export const AddItem = ({onPush}) => {
+export const AddItem = () => {
+
+    const {onPushItem} = useContext(DataContext)
+
     const [value, setValue] = useState('')
 
     const handleSubmit = e => {
@@ -17,7 +14,7 @@ export const AddItem = ({onPush}) => {
 
         // we steal the validation
         if(value.trim()) {
-            onPush(value)
+            onPushItem(value)
             setValue('')
         }
     }

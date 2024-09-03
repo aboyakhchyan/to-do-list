@@ -1,27 +1,21 @@
-import { useState } from "react";
-import "./App.css";
-import { AddItem } from "./components/AddItem";
-import { List } from "./components/LIst";
+import { useState } from "react"
+import "./App.css"
+import ToDoList from "./components/ToDoList"
+import { DataContext } from "./data"
 
-function App() {
+export default function App () {
 
   const [todos, setTodos] = useState([])
 
   const [filteredChange, setFilteredChange] = useState('All')
 
-  /**
-   * 
-   * @param {string} name - name of todo
-   */
+  
   
   const pushItem = name => {
     setTodos([...todos, {name, id: Date.now(), completed: false}])
   }
 
-  /**
-   * 
-   * @param {number} id - identifier of todo 
-   */
+  
 
   const handleRemove = id => {
     let temp = [...todos]
@@ -31,18 +25,19 @@ function App() {
     setTodos(temp)
   }
 
+  
+
   const handleCmpleted = id => {
     setTodos(todos.map(todo=> todo.id === id ? {...todo, completed: !todo.completed} : todo))
   }
 
-  return (
-    <>
-      <h1 className="title">ToDo List</h1>
-      <AddItem todos={todos} onPush={pushItem}/>
-      <List todos={todos} onRemove={handleRemove} 
-      onCompleted={handleCmpleted} filteredChange={filteredChange} onSet={setFilteredChange}/>
-    </>
-  )
-}
 
-export default App
+    return (
+      <>
+        <DataContext.Provider value={{todos, filteredChange, onFilteredChange: setFilteredChange,
+           onPushItem: pushItem, onRemove: handleRemove, onCompleted: handleCmpleted}}>
+          <ToDoList />
+        </DataContext.Provider>
+      </>
+    )
+}
